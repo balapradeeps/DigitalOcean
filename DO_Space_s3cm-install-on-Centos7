@@ -31,3 +31,36 @@ s3cmd put file.txt s3://spacename/path/
 2021-06-02 06:01            0  s3://beastsg1/directory/
 2021-06-02 06:25           15  s3://beastsg1/directory/new.sh
 
+https://www.digitalocean.com/docs/spaces/resources/s3cmd-usage/#upload-files-to-a-space
+
+In order to download/save files you use the get attribute with s3cmd:
+s3cmd get s3://newspace/path/to/file.txt
+
+In order to delete a file you need to use the rm option:
+s3cmd rm s3://newspace/name/of/file
+
+In order to delete all files in a Space you can use rm or del
+s3cmd rm s3://newspace/  --recursive --force
+
+In order to delete a directory/folder:
+s3cmd del s3://newspace/test
+
+In order to delete a folder containing files use:
+s3cmd del -r s3://newspace/test:
+
+In order to list the disk usage:
+s3cmd du
+
+Another cool feature is to sync directories. In this way you can always make sure that you have all of your latest project files uploaded to your bucket:
+s3cmd also have a “`-dry-run”’ which will only list the files to sync and not actually sync them. With this option you can easily check if you need to sync your files or not
+
+s3cmd sync --dry-run test s3://newspace
+
+if there are listed files you can remove the -dry-run and this will sync the files
+
+In order to remove a bucket, first purge all the data:
+s3cmd del -f -r s3://newspace/
+
+and then:
+
+s3cmd rb s3://newspace/
