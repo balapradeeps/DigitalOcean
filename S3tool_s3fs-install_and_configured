@@ -1,0 +1,53 @@
+Step 1: Install S3fs-Fuse:
+Access your VPS via SSH as the root user, or a user with sudo access. Next install s3fs-fuse with the following:
+
+yum install gcc libstdc++-devel gcc-c++ fuse fuse-devel curl-devel libxml2-devel mailcap git automake make
+
+yum install openssl-devel
+
+git clone https://github.com/s3fs-fuse/s3fs-fuse
+
+cd s3fs-fuse/
+
+./autogen.sh
+
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
+./configure --prefix=/usr --with-openssl
+
+make
+
+sudo make install
+
+Step 2 :  Skip not required.
+
+Step 3: Create Credentials File:
+Using a text editor, create your credentials file:
+
+vi /etc/passwd-s3fs
+
+Then enter your Hostwinds API credentials in the first line of the new file, in the format:
+
+ACCESS_KEY:SECRET_KEY
+
+Next, change the permissions of this file:
+
+chmod 600 /etc/passwd-s3fs
+
+Step 4: Create Mountpoint And Cache:
+
+mkdir -p /ftp/mediafiles1
+
+Step 5: Make New Entry In /etc/init.d/custom:
+to get uid and gid type cli  `id` only 
+
+/usr/bin/s3fs beastminesg /ftp/mediafiles1 -o url=https://sgp1.digitaloceanspaces.com -o use_cache=/tmp -o allow_other -o use_path_request_style -o uid=0 -o gid=0
+
+mount only pointed directory: (optional)
+/usr/bin/s3fs Beastminesg:/pipeline/ads /ftp/mediafiles1 -o url=https://sgp1.digitaloceanspaces.com -o use_cache=/tmp -o allow_other -o use_path_request_style -o uid=0 -o gid=0
+
+mount -a
+
+verify that the container stays mounted on boot by running:
+
+df -h
