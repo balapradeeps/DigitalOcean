@@ -1,3 +1,12 @@
+Install python3 along with pip3 
+yum install python3-pip -y
+
+[root@localhost ~]# rpm -qa | grep -i python3-pip
+python3-pip-9.0.3-7.el7_7.noarch
+
+[root@localhost ~]# pip3 -V
+pip 9.0.3 from /usr/lib/python3.6/site-packages (python 3.6)
+
 Step 1: Install S3fs-Fuse:
 Access your VPS via SSH as the root user, or a user with sudo access. Next install s3fs-fuse with the following:
 
