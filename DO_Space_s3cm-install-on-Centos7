@@ -24,6 +24,9 @@ Put new file in bucket inside directory :
 s3cmd la --recursive
 s3cmd put file.txt s3://spacename/path/
 
+Put directory to DO Space directly :
+s3cmd put -r gitBackup_24052023 s3://backup/gitBackup/manualBackup/
+
   
   list the bucket inside directort files :
   s3cmd ls s3://beastsg1/directory/
